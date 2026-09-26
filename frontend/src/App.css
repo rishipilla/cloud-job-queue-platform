@@ -1,0 +1,536 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+
+:root {
+  --color-bg: #f5f7fb;
+  --color-text: #172033;
+  --color-text-muted: #6b7280;
+  --color-text-faint: #8a93a3;
+  --color-border: #e6e9ef;
+  --color-border-light: #edf0f5;
+  --color-border-input: #d9dee8;
+  --color-border-input-focus: #7c8aa5;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8f9fc;
+  --color-surface-code: #f7f8fa;
+  --color-border-code: #e7eaf0;
+  --color-primary: #172033;
+  --color-focus-ring: #2457a6;
+
+  --color-error-bg: #fff5f5;
+  --color-error-border: #fecaca;
+  --color-error-text: #b42318;
+
+  --status-queued-bg: #fff4d6;
+  --status-queued-fg: #9a6700;
+  --status-processing-bg: #e5efff;
+  --status-processing-fg: #2457a6;
+  --status-completed-bg: #e5f7ed;
+  --status-completed-fg: #18794e;
+  --status-failed-bg: #fde8e8;
+  --status-failed-fg: #b42318;
+
+  --radius-sm: 9px;
+  --radius-md: 14px;
+  --radius-lg: 16px;
+
+  --shadow-card: 0 3px 12px rgba(20, 30, 50, 0.04);
+  --shadow-modal: 0 20px 60px rgba(15, 23, 42, 0.25);
+
+  --overlay-bg: rgba(15, 23, 42, 0.55);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  padding: 32px 48px;
+}
+
+/* ============================================================
+   SHARED CARD PATTERN
+   (apply alongside .stat-card / .create-job / .jobs-section)
+   ============================================================ */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: -0.8px;
+}
+
+.header p {
+  margin: 7px 0 0;
+  color: var(--color-text-muted);
+}
+
+.refresh-button,
+.form button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 11px 17px;
+  background: var(--color-primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.refresh-button:hover,
+.form button:hover {
+  opacity: 0.9;
+}
+
+.refresh-button:focus-visible,
+.form button:focus-visible,
+.close-button:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.refresh-button:disabled,
+.form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   STATISTICS
+   ============================================================ */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  padding: 20px;
+}
+
+.stat-card span {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stat-card strong {
+  font-size: 28px;
+}
+
+/* ============================================================
+   CREATE JOB
+   ============================================================ */
+
+.create-job {
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.create-job h2,
+.jobs-section h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.create-job p,
+.section-header p {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form input {
+  flex: 1;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  outline: none;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.form input:focus {
+  border-color: var(--color-border-input-focus);
+}
+
+.form button {
+  white-space: nowrap;
+}
+
+/* ============================================================
+   JOBS
+   ============================================================ */
+
+.jobs-section {
+  padding: 24px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.loading {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 13px 12px;
+  background: var(--color-surface-alt);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+td {
+  padding: 15px 12px;
+  border-top: 1px solid var(--color-border-light);
+  font-size: 14px;
+}
+
+.job-id {
+  font-family: monospace;
+  font-size: 13px;
+  color: #596579;
+}
+
+.job-row {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.job-row:hover {
+  background: var(--color-surface-alt);
+}
+
+.job-row:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: -2px;
+}
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status.queued {
+  background: var(--status-queued-bg);
+  color: var(--status-queued-fg);
+}
+
+.status.processing {
+  background: var(--status-processing-bg);
+  color: var(--status-processing-fg);
+}
+
+.status.completed {
+  background: var(--status-completed-bg);
+  color: var(--status-completed-fg);
+}
+
+.status.failed {
+  background: var(--status-failed-bg);
+  color: var(--status-failed-fg);
+}
+
+.empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-faint);
+}
+
+/* ============================================================
+   MODAL OVERLAY
+   ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+/* ============================================================
+   JOB MODAL
+   ============================================================ */
+
+.job-modal {
+  width: min(760px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+}
+
+/* ============================================================
+   MODAL HEADER
+   ============================================================ */
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.modal-header p {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.close-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f3f7;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background: #e5e7eb;
+}
+
+/* ============================================================
+   JOB DETAILS
+   ============================================================ */
+
+.job-details {
+  padding: 24px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.detail-row > span:first-child {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.detail-row strong {
+  text-align: right;
+  word-break: break-all;
+}
+
+/* ============================================================
+   PAYLOAD / RESULT / ERROR
+   ============================================================ */
+
+.detail-block {
+  margin-top: 22px;
+}
+
+.detail-block > span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.detail-block pre {
+  margin: 0;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--color-surface-code);
+  border: 1px solid var(--color-border-code);
+  overflow-x: auto;
+  font-family: "Cascadia Code", "Consolas", monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.error-block pre {
+  background: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
+
+/* ============================================================
+   TIMESTAMPS
+   ============================================================ */
+
+.timestamps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.timestamps > div {
+  padding: 14px;
+  background: var(--color-surface-alt);
+  border-radius: 10px;
+}
+
+.timestamps span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.timestamps strong {
+  display: block;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+/* ============================================================
+   DETAILS LOADING
+   ============================================================ */
+
+.details-loading {
+  padding: 50px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1000px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .app {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-overlay {
+    padding: 12px;
+  }
+
+  .job-modal {
+    max-height: 94vh;
+  }
+
+  .detail-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detail-row strong {
+    text-align: left;
+  }
+
+  .timestamps {
+    grid-template-columns: 1fr;
+  }
+}
